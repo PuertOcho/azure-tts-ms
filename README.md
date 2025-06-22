@@ -6,10 +6,8 @@ Servicio de Text-to-Speech usando Microsoft Azure Cognitive Services, configurad
 
 ### 1. Configurar Variables de Entorno
 
-```bash
-# Crear .env a partir de .env.example
-# Editar .env con tus credenciales de Azure
-```
+- Crear .env a partir de .env.example
+- Editar .env con tus credenciales de Azure
 
 ### 2. Variables de Entorno Requeridas
 
