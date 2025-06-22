@@ -1,0 +1,10 @@
+Flask==2.3.2
+requests==2.31.0
+python-dotenv==1.0.0
+gunicorn==20.1.0
+# Dependencias para procesamiento de audio
+numpy>=2.0.2
+soundfile
+librosa
+# Dependencias para manejo de archivos temporales y fechas
+# (datetime, tempfile, shutil ya están incluidos en Python standard library) 

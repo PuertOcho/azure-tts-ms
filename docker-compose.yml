@@ -1,0 +1,26 @@
+services:
+  azure-tts:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME:-azure-tts-service}
+    ports:
+      - "${HOST_PORT:-5004}:${CONTAINER_PORT:-5000}"
+    env_file:
+      - ./.env
+    environment:
+      - FLASK_HOST=${FLASK_HOST:-0.0.0.0}
+      - FLASK_PORT=${CONTAINER_PORT:-5000}
+      - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE:-es-ES}
+      - DEFAULT_VOICE=${DEFAULT_VOICE:-Abril}
+      - DEBUG_AUDIO=${DEBUG_AUDIO:-true}
+    volumes:
+      - ${AUDIO_OUTPUT_PATH:-./audio_output}:/app/audio
+      - ${DEBUG_AUDIO_PATH:-./debug_audio}:/app/debug_audio
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${CONTAINER_PORT:-5000}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s 
