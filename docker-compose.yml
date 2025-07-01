@@ -15,7 +15,6 @@ services:
       - DEFAULT_VOICE=${DEFAULT_VOICE:-Abril}
       - DEBUG_AUDIO=${DEBUG_AUDIO:-true}
     volumes:
-      - ${AUDIO_OUTPUT_PATH:-./audio_output}:/app/audio
       - ${DEBUG_AUDIO_PATH:-./debug_audio}:/app/debug_audio
     restart: unless-stopped
     healthcheck:
