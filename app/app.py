@@ -302,6 +302,18 @@ def synthesize_json():
             sf.write(debug_path, audio_data, sample_rate)
             print(f"[DEBUG] Audio guardado: {debug_filename}")
 
+        # Convertir audio a Base64 para incluir en la respuesta JSON
+        import base64
+        import io
+        
+        # Guardar audio en buffer de memoria
+        audio_buffer = io.BytesIO()
+        sf.write(audio_buffer, audio_data, sample_rate, format='WAV')
+        audio_buffer.seek(0)
+        
+        # Convertir a Base64
+        audio_base64 = base64.b64encode(audio_buffer.getvalue()).decode('utf-8')
+        
         response_data = {
             "success": True,
             "text": text,
@@ -311,7 +323,10 @@ def synthesize_json():
             "sample_rate": sample_rate,
             "model": "azure-tts",
             "speed": speed,
-            "region": AZURE_TTS_REGION
+            "region": AZURE_TTS_REGION,
+            "audio_data": audio_base64,  # Audio en Base64
+            "audio_format": "wav",
+            "audio_size_bytes": len(audio_buffer.getvalue())
         }
         
         if DEBUG_AUDIO and debug_filename:
